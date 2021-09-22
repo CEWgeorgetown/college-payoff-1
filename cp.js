@@ -8,122 +8,142 @@ function sortNums(a, b) {
 var edCats = ["Less than high school",
   "High school diploma/GED",
   "Some college",
-  "Associate's",
-  "Bachelor's",
-  "Master's",
-  "Professional",
-  "Doctoral"];
+  "Associate's degree",
+  "Bachelor's degree",
+  "Master's degree",
+  "Professional degree",
+  "Doctoral degree"];
+var edCats4 = ["Bachelor's degree",
+  "Master's degree",
+  "Professional degree",
+  "Doctoral degree"];
 var genderCats = ["Women", "Men"];
-var raceCats = ["Hispanic/Latino",
+ var raceCats = ["Hispanic/Latino",
   "Black/African-American",
   "Asian",
   "American Indian/Alaskan Native",
+  "Native Hawaiian/Pacific Islander",
   "Multiracial",
   "Other",
   "White"];
-var majorCats = ["Education",
-  "Psychology and social work",
-  "Arts",
-  "Humanities and liberal arts",
-  "Law and public policy",
-  "Agriculture and natural resources",
-  "Industrial arts, consumer services, and recreation",
-  "Health",
-  "Biology and life sciences",
-  "Communications and journalism",
-  "Physical sciences",
-  "Social sciences",
-  "Business",
-  "Computers, statistics, and mathematics",
-  "Architecture and engineering"];
-var occCats = ["Food preparation and serving",
-  "Personal care and service",
-  "Building and grounds cleaning and maintenance",
-  "Farming, fishing, and forestry",
-  "Health support",
-  "Production",
-  "Office and administrative support",
-  "Sales",
-  "Transportation and material moving",
-  "Community and social service",
-  "Protective service",
-  "Construction and extraction",
-  "Installation, maintenance, and repair",
-  "Education",
-  "Arts, design, entertainment, sports, and media",
-  "Business and financial operations",
-  "Health practice",
-  "Management",
-  "Architecture and engineering",
-  "Computer and mathematical"];
-var indCats = ["Food services",
-  "Health services",
-  "Agriculture",
-  "Administrative services",
-  "Arts",
-  "Retail trade",
-  "Other services",
-  "Manufacturing",
-  "Educational services",
-  "Financial activities and real estate",
-  "Wholesale trade",
-  "Construction",
-  "Transportation",
-  "Public administration",
-  "Financial activities and real estate",
-  "Information",
-  "Utilities",
-  "Professional and management services",
-  "Mining"];
-var stateCats = ["Florida",
-"North Carolina",
-"Arkansas",
-"Tennessee",
-"Georgia",
-"South Carolina",
-"Texas",
-"Arizona",
-"California",
-"Mississippi",
-"New Mexico",
-"Alabama",
-"Nevada",
-"Missouri",
-"Nebraska",
-"Idaho",
-"Oklahoma",
-"Illinois",
-"Kentucky",
-"New York",
-"Oregon",
-"Kansas",
-"Indiana",
-"Ohio",
-"Utah",
-"Virginia",
-"Minnesota",
-"Iowa",
-"Wisconsin",
-"Michigan",
-"Colorado",
-"Pennsylvania",
-"Washington",
-"Rhode Island",
-"Hawaii",
-"New Jersey",
-"Delaware",
-"Maryland",
-"Louisiana",
-"Connecticut",
-"West Virginia",
-"Massachusetts",
-"New Hampshire"];
+  var majorCats = ["Agriculture and natural resources",
+    "Architecture and engineering",
+    "Arts",
+    "Biology and life sciences",
+    "Business",
+    "Communications and journalism",
+    "Computers, statistics, and mathematics",
+    "Education",
+    "Health",
+    "Humanities and liberal arts",
+    "Industrial arts, consumer services, and recreation",
+    "Law and public policy",
+    "Physical sciences",
+    "Psychology and social work",
+    "Social sciences"];
+  var occCats = ["Architecture and engineering",
+    "Arts, design, entertainment, sports, and media",
+    "Building and grounds cleaning and maintenance",
+    "Business and financial operations",
+    "Community and social service",
+    "Computer and mathematical",
+    "Construction and extraction",
+    "Education",
+    "Farming, fishing, and forestry",
+    "Food preparation and serving",
+    "Health practice",
+    "Health support",
+    "Installation, maintenance, and repair",
+    "Management",
+    "Office and administrative support",
+    "Personal care and service",
+    "Production",
+    "Protective service",
+    "Sales",
+    "Transportation and material moving"];
+  var indCats = ["Administrative services",
+    "Agriculture",
+    "Arts",
+    "Construction",
+    "Educational services",
+    "Financial activities and real estate",
+    "Financial activities and real estate",
+    "Food services",
+    "Health services",
+    "Information",
+    "Manufacturing",
+    "Mining",
+    "Other services",
+    "Professional and management services",
+    "Public administration",
+    "Retail trade",
+    "Transportation",
+    "Utilities",
+    "Wholesale trade"];
+  var stateCats = ["Alabama",
+  "Alaska",
+  "Arizona",
+  "Arkansas",
+  "California",
+  "Colorado",
+  "Connecticut",
+  "Delaware",
+  "District of Columbia",
+  "Florida",
+  "Georgia",
+  "Hawaii",
+  "Idaho",
+  "Illinois",
+  "Indiana",
+  "Iowa",
+  "Kansas",
+  "Kentucky",
+  "Louisiana",
+  "Maine",
+  "Maryland",
+  "Massachusetts",
+  "Michigan",
+  "Minnesota",
+  "Mississippi",
+  "Missouri",
+  "Montana",
+  "Nebraska",
+  "Nevada",
+  "New Hampshire",
+  "New Hampshire",
+  "New Jersey",
+  "New Mexico",
+  "New York",
+  "North Carolina",
+  "North Dakota",
+  "Ohio",
+  "Oklahoma",
+  "Oregon",
+  "Pennsylvania",
+  "Rhode Island",
+  "South Carolina",
+  "South Dakota",
+  "Tennessee",
+  "Texas",
+  "Utah",
+  "Vermont",
+  "Virginia",
+  "Washington",
+  "West Virginia",
+  "Wisconsin",
+  "Wyoming"];
+
+Highcharts.setOptions({
+    lang: {
+        thousandsSep: ','
+    }
+});
 
 function drawChart(div, xaxis, chartData, chartDataP50, chartsubtitle) {
   Highcharts.chart(div, {
     chart: {
       style: {
-        // fontFamily: "'Open+Sans', 'PT+Serif+Caption'"
+        fontFamily: "'Open Sans', 'PT Serif Caption'"
       },
       inverted: true
     },
@@ -158,7 +178,6 @@ function drawChart(div, xaxis, chartData, chartDataP50, chartsubtitle) {
           return '25th percentile = $' +(this.point.low/1e6).toFixed(1) + 'M; ' +
             '75th percentile = $' +(this.point.high/1e6).toFixed(1) + 'M'
         }
-
       }
     },
     plotOptions: {
@@ -194,8 +213,40 @@ function drawChart(div, xaxis, chartData, chartDataP50, chartsubtitle) {
   });
 }
 
-function getChartObjByEd (obj) {
+function getChartObjByEd (obj, edlevels=edCats) {
+  // In case we want to insert a null into arrays that do not have all educational categories
   var chartRawData = obj;
+  // var benchEdCat = edlevels;
+  // if (chartRawData.length != benchEdCat.length) {
+  //   for (var i = 0; i < benchEdCat.length; i++) {
+  //     if (i == chartRawData.length) {
+  //       chartRawData.splice(i, 0, {schlcat: benchEdCat[i], p50: null, p25: null, p75: null})
+  //     }
+  //     if (chartRawData[i].schlcat != benchEdCat[i]) {
+  //       chartRawData.splice(i, 0, {schlcat: benchEdCat[i], p50: null, p25: null, p75: null})
+  //     }
+  //   }
+  // }
+
+  // var x = [1,2,3,5,7];
+  // console.log(x);
+  // var bench = [1,2,3,4,5,6,7];
+  // for (var i = 0; i<bench.length; i++) {
+  //   if (x[i] != bench[i]) {
+  //     x.splice(i, 0, bench[i])
+  //   }
+  // }
+  // console.log(x);
+  // var x = [1,2,3];
+  // console.log(x);
+  // var bench = [1,2,3,4,5,6,7];
+  // for (var i = 0; i<bench.length; i++) {
+  //   if (x[i] != bench[i]) {
+  //     x.splice(i, 0, bench[i])
+  //   }
+  // }
+  // console.log(x);
+
   var xaxis = chartRawData.map((obj,i) => {
     return obj.schlcat;
   });
@@ -213,14 +264,74 @@ function getChartObjByEd (obj) {
   return [xaxis, chartData, chartDataP50];
 }
 
-function subChart (obj, navItem, div) {
+function subChart (obj, navItem, div, edlevels=edCats) {
   chartData = $.grep(obj[0].data, function(n,i) {
     return n.detail == navItem
   })
-  chartData = getChartObjByEd(chartData);
+  chartData = getChartObjByEd(chartData, edlevels);
   drawChart(div, chartData[0], chartData[1], chartData[2], navItem);
 }
-// Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+function ageChart(obj, div) {
+  var xaxis = obj[0].data.map((obj,i) => {
+    return obj.age;
+  });
+  var ageData = [];
+  for (var i=0; i < obj.length; i++) {
+    var ageChartObj = {name: null, data: null};
+    ageChartObj.name = obj[i].schlcat;
+    ageChartObj.data = obj[i].data.map((obj,i) => {
+      return (Math.round(obj.p50/1000) * 1000);
+    });
+    ageData.push(ageChartObj);
+  }
+  Highcharts.chart(div, {
+    chart: {
+      style: {
+        fontFamily: "'Open Sans', 'PT Serif Caption'"
+      },
+      type: 'line'
+    },
+    accessibility: {
+        description: 'Image description: A chart that shows the earnings by educational attainment from age 25 to 64'
+    },
+    title: {
+      text: 'Earnings by highest educational attainment from age 25 to 64'
+    },
+    subtitle: {
+      text: ''
+    },
+    credits: {
+      enabled: false
+    },
+    xAxis: {
+      categories: xaxis
+    },
+    yAxis: {
+      title: {
+        text: ''
+      },
+      labels: {
+        enabled: false
+      }
+    },
+    tooltip: {
+      formatter: function() {
+        return "Age: " + this.x + '<br>' + this.series.name + ' $' + Highcharts.numberFormat(this.y, 0);
+        // if (this.series.name == "Median lifetime earnings") {
+        //   return 'Median lifetime earnings of ' + (this.x).toLowerCase() + ': ' + (this.y/1e6).toFixed(1) + 'M'
+        // } else if (this.series.name == "Lifetime earnings range") {
+        //   return '25th percentile = $' +(this.point.low/1e6).toFixed(1) + 'M; ' +
+        //     '75th percentile = $' +(this.point.high/1e6).toFixed(1) + 'M'
+        // }
+      }
+    },
+    legend: {
+      enabled: true
+    },
+
+    series: ageData
+  });
+}
 
 $(document).ready(function() {
 
@@ -244,14 +355,13 @@ $(document).ready(function() {
     return n.category == "Major industry"
   });
   var statesObj = $.grep(dataobj, function(n,i) {
-    return n.category == "States"
+    return n.category == "State"
   });
   var chartData = getChartObjByEd(educationObj[0].data);
   drawChart('chart-area-0', chartData[0], chartData[1], chartData[2]);
-
   $("#nav-ed").on('click', function(n, i) {
-    var numChild = $(".chart > div").length;
-    var i, navItem, divId;
+    // var numChild = $(".chart > div").length;
+    var i=0, navItem, divId;
     $(".chart .col-6").remove();
     divId = 'chart-area-' + i;
     $("<div>", {class: "col-6", id: divId})
@@ -261,7 +371,7 @@ $(document).ready(function() {
   })
 
   $("#nav-sex").on('click', function() {
-    var numChild = $(".chart > div").length;
+    // var numChild = $(".chart > div").length;
     var i, navItem, divId;
     $(".chart .col-6").remove();
     for (i = 0; i < genderCats.length; i++) {
@@ -274,7 +384,7 @@ $(document).ready(function() {
   });
 
   $("#nav-race").on('click', function() {
-    var numChild = $(".chart > div").length;
+    // var numChild = $(".chart > div").length;
     var i, navItem, divId;
     $(".chart .col-6").remove();
     for (i = 0; i < raceCats.length; i++) {
@@ -285,9 +395,10 @@ $(document).ready(function() {
       subChart(raceObj, navItem, divId);
     }
   });
+  // var edCats4 = edCats.slice(4,8);
 
   $("#nav-major").on('click', function() {
-    var numChild = $(".chart > div").length;
+    // var numChild = $(".chart > div").length;
     var i, navItem, divId;
     $(".chart .col-6").remove();
     for (i = 0; i < majorCats.length; i++) {
@@ -295,7 +406,15 @@ $(document).ready(function() {
       divId = 'chart-area-' + i;
       $("<div>", {class: "col-6", id: divId})
       .appendTo(".chart")
-      subChart(majorObj, navItem, divId);
+      subChart(majorObj, navItem, divId, edCats4);
     }
+  });
+  $("#nav-age").on('click', function() {
+    $(".chart .col-6").remove();
+    var i = 0;
+    divId = 'chart-area-' + i;
+    $("<div>", {class: "col-6", id: divId})
+    .appendTo(".chart");
+    ageChart(ageObj, divId);
   });
 })
