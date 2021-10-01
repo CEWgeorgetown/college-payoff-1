@@ -133,6 +133,8 @@ var genderCats = ["Women", "Men"];
   "Wisconsin",
   "Wyoming"];
 
+var ageColors = ["#114175", "#0074cc", "#f9a21c", "#266150", "#f1d117", "#b9d9ec", "#de354c", "#591c0b"];
+
 Highcharts.setOptions({
     lang: {
         thousandsSep: ','
@@ -253,7 +255,8 @@ function getChartObjByEd (obj, edlevels=edCats) {
   var chartData = chartRawData.map((obj, i) => {
     return {x: i,
       low: obj.p25,
-      high: obj.p75
+      high: obj.p75,
+      color: "#0074cc"
     }
   });
   var chartDataP50 = chartRawData.map((obj, i) => {
@@ -277,8 +280,9 @@ function ageChart(obj, div) {
   });
   var ageData = [];
   for (var i=0; i < obj.length; i++) {
-    var ageChartObj = {name: null, data: null};
+    var ageChartObj = {name: null, data: null, color: null};
     ageChartObj.name = obj[i].schlcat;
+    ageChartObj.color = ageColors[i];
     ageChartObj.data = obj[i].data.map((obj,i) => {
       return (Math.round(obj.p50/1000) * 1000);
     });
@@ -332,6 +336,10 @@ function ageChart(obj, div) {
     series: ageData
   });
 }
+function removeChartDivs() {
+  $(".chart .col-6").remove();
+  $(".chart .col-12").remove();
+}
 
 $(document).ready(function() {
 
@@ -357,15 +365,14 @@ $(document).ready(function() {
   var statesObj = $.grep(dataobj, function(n,i) {
     return n.category == "State"
   });
-  var chartData = getChartObjByEd(educationObj[0].data);
-  drawChart('chart-area-0', chartData[0], chartData[1], chartData[2]);
   $("#nav-ed").on('click', function(n, i) {
     // var numChild = $(".chart > div").length;
     var i=0, navItem, divId;
-    $(".chart .col-6").remove();
+    removeChartDivs();
     divId = 'chart-area-' + i;
-    $("<div>", {class: "col-6", id: divId})
-    .appendTo(".chart")
+    $("<div>", {class: "col-12", id: divId})
+    .appendTo(".chart");
+    $("#"+divId).css('height', '600');
     chartData = getChartObjByEd(educationObj[0].data);
     drawChart(divId, chartData[0], chartData[1], chartData[2]);
   })
@@ -373,12 +380,13 @@ $(document).ready(function() {
   $("#nav-sex").on('click', function() {
     // var numChild = $(".chart > div").length;
     var i, navItem, divId;
-    $(".chart .col-6").remove();
+    removeChartDivs();
     for (i = 0; i < genderCats.length; i++) {
       navItem = genderCats[i];
       divId = 'chart-area-' + i;
       $("<div>", {class: "col-6", id: divId})
-      .appendTo(".chart")
+      .appendTo(".chart");
+      $("#"+divId).css('height', '600');
       subChart(genderObj, navItem, divId);
     }
   });
@@ -386,12 +394,13 @@ $(document).ready(function() {
   $("#nav-race").on('click', function() {
     // var numChild = $(".chart > div").length;
     var i, navItem, divId;
-    $(".chart .col-6").remove();
+    removeChartDivs();
     for (i = 0; i < raceCats.length; i++) {
       navItem = raceCats[i];
       divId = 'chart-area-' + i;
       $("<div>", {class: "col-6", id: divId})
-      .appendTo(".chart")
+      .appendTo(".chart");
+      // $("#"+divId).css('height', 'auto');
       subChart(raceObj, navItem, divId);
     }
   });
@@ -400,21 +409,60 @@ $(document).ready(function() {
   $("#nav-major").on('click', function() {
     // var numChild = $(".chart > div").length;
     var i, navItem, divId;
-    $(".chart .col-6").remove();
+    removeChartDivs();
     for (i = 0; i < majorCats.length; i++) {
       navItem = majorCats[i];
       divId = 'chart-area-' + i;
       $("<div>", {class: "col-6", id: divId})
-      .appendTo(".chart")
+      .appendTo(".chart");
       subChart(majorObj, navItem, divId, edCats4);
     }
   });
   $("#nav-age").on('click', function() {
-    $(".chart .col-6").remove();
+    removeChartDivs();
     var i = 0;
     divId = 'chart-area-' + i;
-    $("<div>", {class: "col-6", id: divId})
+    $("<div>", {class: "col-12", id: divId})
     .appendTo(".chart");
+    $("#"+divId).css('height', '600');
     ageChart(ageObj, divId);
   });
+  $("#nav-ind").on('click', function() {
+    // var numChild = $(".chart > div").length;
+    var i, navItem, divId;
+    removeChartDivs();
+    for (i = 0; i < indCats.length; i++) {
+      navItem = indCats[i];
+      divId = 'chart-area-' + i;
+      $("<div>", {class: "col-6", id: divId})
+      .appendTo(".chart")
+      subChart(indObj, navItem, divId);
+    }
+  });
+  $("#nav-occ").on('click', function() {
+    // var numChild = $(".chart > div").length;
+    var i, navItem, divId;
+    removeChartDivs();
+    for (i = 0; i < occCats.length; i++) {
+      navItem = occCats[i];
+      divId = 'chart-area-' + i;
+      $("<div>", {class: "col-6", id: divId})
+      .appendTo(".chart")
+      subChart(occObj, navItem, divId);
+    }
+  });
+  $("#nav-states").on('click', function() {
+    // var numChild = $(".chart > div").length;
+    var i, navItem, divId;
+    removeChartDivs();
+    for (i = 0; i < stateCats.length; i++) {
+      navItem = stateCats[i];
+      divId = 'chart-area-' + i;
+      $("<div>", {class: "col-6", id: divId})
+      .appendTo(".chart")
+      subChart(statesObj, navItem, divId);
+    }
+  });
+
+  $("#nav-ed").trigger('click');
 })
