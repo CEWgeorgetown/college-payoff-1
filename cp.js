@@ -11,12 +11,12 @@ var edCats = ["Less than high school",
   "Associate's degree",
   "Bachelor's degree",
   "Master's degree",
-  "Professional degree",
-  "Doctoral degree"];
+  "Doctoral degree",
+  "Professional degree"];
 var edCats4 = ["Bachelor's degree",
   "Master's degree",
-  "Professional degree",
-  "Doctoral degree"];
+  "Doctoral degree",
+  "Professional degree"];
 var genderCats = ["Women", "Men"];
  var raceCats = ["Hispanic/Latino",
   "Black/African-American",
