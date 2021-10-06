@@ -153,17 +153,13 @@ function drawChart(div, xaxis, chartData, chartDataP50, chartsubtitle) {
         description: 'Image description: A chart that shows the range in lifetime earnings by highest educational attainment'
     },
     title: {
-      text: 'Lifetime earnings by highest educational attainment',
-      style: {
-        fontWeight: 'bold',
-        color: "#0074cc"
-      }
+      text: 'Lifetime earnings by highest educational attainment'
     },
     subtitle: {
       text: chartsubtitle,
       style: {
         fontWeight: 'bold',
-        fontSize: '11pt'
+        color: "#0074cc"
       }
     },
     credits: {
@@ -307,7 +303,7 @@ function ageChart(obj, div) {
         description: 'Image description: A chart that shows the earnings by educational attainment from age 25 to 64'
     },
     title: {
-      text: '<b>Earnings by highest educational attainment from age 25 to 64</b>'
+      text: 'Earnings by highest educational attainment from age 25 to 64'
     },
     subtitle: {
       text: ''
