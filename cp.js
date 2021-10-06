@@ -155,13 +155,15 @@ function drawChart(div, xaxis, chartData, chartDataP50, chartsubtitle) {
     title: {
       text: 'Lifetime earnings by highest educational attainment',
       style: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: "#0074cc"
       }
     },
     subtitle: {
       text: chartsubtitle,
       style: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontSize: '11pt'
       }
     },
     credits: {
